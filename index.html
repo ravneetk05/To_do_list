@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="new.css">
+
+    <title>My Secret Diary</title>
+    <link rel="icon" href="bookicon.png" type="image/gif">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-dark text-white">
+<div id="page-container-wrapper">
+    <div id="page-container" class="page-container text-center">
+
+<!-- COVER PAGE -->
+        <div class="cover" style="z-index: 0;">
+
+            <img src="coverPage.png" alt="Cover Image" class="cover-image">
+
+        </div>
+
+<!-- PAGE - 0 -->
+        <div class="page" style="z-index:-1;">
+            <div class="page-content">
+                <!-- Form Section -->
+                <div class="page0-form-header"  style="margin-top: -10px;">Personal Information Form</div>
+                <form id="page0-personalInfoForm">
+                    <div class="page0-form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="page0-form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="page0-form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                    </div>
+
+                    <div class="page0-form-group">
+                        <label for="address">Address</label>
+                        <input id="address" name="address" placeholder="Enter your address" required>
+                    </div>
+
+                    <div class="page0-form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender" required>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="page0-form-group">
+                        <label for="birthdate">Date of Birth</label>
+                        <input type="date" id="birthdate" name="birthdate" required>
+                    </div>
+
+                    <div class="page0-input-container">
+                        <button id="page0Submit" type="submit">Submit</button>
+                    </div>
+                </form>
+
+                <!-- Submitted Information Section -->
+                <div class="page0-form-header">Submitted Information</div>
+                <ul class="page0-submitted-info" id="page0-submittedInfo"></ul>
+            </div>
+        </div>
+
+<!-- PAGE - 1 -->
+
+        <div class="page" style="z-index: -2;">
+            <div class="page-content">
+                <div class="page1-form-header">Your Safe Place</div>
+                <div class="page1-input-container">
+                    <div class="page1-row">
+                        <input type="date" id="entryDate" name="entryDate" placeholder="Select Date" required />
+                        <input type="text" id="dearDiary" name="dearDiary" placeholder="Dear Diary..." required />
+                    </div>
+                    <input id="diaryEntry" name="diaryEntry" placeholder="Tell me about your day..." required  >
+                    <input type="text" id="shortNote" placeholder="A quick note..." required />
+                </div>
+            </div>
+        </div>
+
+<!-- PAGE - 2 -->
+        <div class="page" style="z-index: -3;">
+            <div class="page-content">
+                <div class="page2-form-header">Daily Insights</div>
+                <div class="page2-input-container">
+                    <select id="weather" name="weather" required>
+                        <option value="" disabled selected>Weather</option>
+                        <option value="sunny">Sunny ☀</option>
+                        <option value="cloudy">Cloudy ⛅</option>
+                        <option value="rainy">Rainy ☔</option>
+                        <option value="snowy">Snowy ☃</option>
+                    </select>
+                    <input
+                            type="text"
+                            id="activities"
+                            placeholder="Activities today..."
+                            required
+                    />
+                    <input type="text" id="peopleMet" placeholder="People you met..." />
+                    <input type="text" id="food" placeholder="What did you eat?" />
+                    <input id="accomplishments" placeholder="Accomplishments..." >
+                    <input id="challenges" placeholder="Challenges faced..." >
+                    <input id="reflection" placeholder="Thoughts and reflections..." required >
+                    <input type="number" id="rating" placeholder="Rate your day (1-10)" min="1" max="10" required />
+                    <button class="page2-save-btn" type="button" onclick="validateForm()">Save Entry</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function validateForm() {
+                event.preventDefault(); // Prevent form submission
+                let valid = true;
+                const fields = [
+                    "entryDate",
+                    "dearDiary",
+                    "diaryEntry",
+                    "shortNote",
+                    "weather",
+                    "activities",
+                    "peopleMet",
+                    "food",
+                    "accomplishments",
+                    "challenges",
+                    "reflection",
+                    "rating",
+
+                ];
+
+                fields.forEach((id) => {
+                    const field = document.getElementById(id);
+                    if (!field.value) {
+                        valid = false;
+                        field.style.border = "2px solid red";
+                    } else {
+                        field.style.border = "1px solid #ccc";
+                    }
+                });
+
+                if (valid) {
+                    saveDiary();
+                } else {
+                    alert("Please fill out all required fields.");
+                }
+            }
+
+            function saveDiary() {
+                const diaryContent = {
+                    entryDate: document.getElementById("entryDate").value,
+                    dearDiary: document.getElementById("dearDiary").value,
+                    diaryEntry: document.getElementById("diaryEntry").value,
+                    shortNote: document.getElementById("shortNote").value,
+                    weather: document.getElementById("weather").value,
+                    activities: document.getElementById("activities").value || "",
+                    peopleMet: document.getElementById("peopleMet").value || "",
+                    food: document.getElementById("food").value || "",
+                    accomplishments:
+                        document.getElementById("accomplishments").value || "",
+                    challenges: document.getElementById("challenges").value || "",
+                    reflection: document.getElementById("reflection").value,
+                    rating: parseInt(document.getElementById("rating").value, 10),
+                };
+
+                fetch("http://localhost:3019/post", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(diaryContent),
+                })
+                    .then((response) => response.text())
+                    .then((data) => {
+                        alert(data);
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                        alert("Failed to save diary entry.");
+                    });
+            }
+        </script>
+
+<!-- Page - 3 -->
+        <div class="page" style="z-index: -4;">
+            <div class="page-content">
+                <main class="page3container">
+
+                    <!-- Progress Bar -->
+                    <div class="bg-white">
+                        <div id="progressContainer" class="flex justify-between">
+                            <div class="text-center">
+                                <button id="page3-save-entry" class="bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                    Save Today's Entry ✨
+                                </button>
+                            </div>
+                            <span id="progressTextLabel">Today's Progress</span>
+                            <span id="page3-progress-text">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="page3-progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <!-- Slides Navigation -->
+                    <div class="bg-white" id="slides-bg-white">
+                        <div class="flex justify-between border-b">
+                            <button id="page3Prev" class="bg-blue-100 text-blue-600 rounded hover:bg-blue-200" disabled>← Previous</button>
+                            <button id="page3Next" class="bg-blue-100 text-blue-600 rounded hover:bg-blue-200">Next →</button>
+                        </div>
+
+                        <div class="slides-container">
+                            <div class="page3-slides-wrapper">
+                                <!-- Mood Section -->
+                                <section class="slide">
+                                    <h2 id="slide1Heading" class="text-xl font-semibold">How are you feeling today? 🌈</h2>
+                                    <div class="flex flex-wrap justify-center" id="mood-container">
+                                        <div class="page3-mood-option text-center" data-mood="great">
+                                            <div class="page3-emoji-sticker">🤩 Amazing</div>
+                                        </div>
+                                        <div class="page3-mood-option text-center" data-mood="good">
+                                            <div class="page3-emoji-sticker">😊 Good</div>
+                                        </div>
+                                        <div class="page3-mood-option text-center" data-mood="okay">
+                                            <div class="page3-emoji-sticker">😐 Okay</div>
+                                        </div>
+                                        <div class="page3-mood-option text-center" data-mood="down">
+                                            <div class="page3-emoji-sticker">😔 Down</div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <!-- Water Intake Section -->
+                                <section class="slide">
+                                    <h2 id="slide2Heading" class="text-xl font-semibold">Water Intake 💧</h2>
+                                        <div class="waterContainer">
+                                            <div class="page3-water-cup">
+                                                <div class="page3-water-fill"></div>
+                                            </div>
+                                            <span>Cup 1</span>
+                                        </div>
+                                        <div class="waterContainer">
+                                            <div class="page3-water-cup">
+                                                <div class="page3-water-fill"></div>
+                                            </div>
+                                            <span>Cup 2</span>
+                                        </div>
+                                        <div class="waterContainer">
+                                            <div class="page3-water-cup">
+                                                <div class="page3-water-fill"></div>
+                                            </div>
+                                            <span>Cup 3</span>
+                                        </div>
+                                        <div class="waterContainer">
+                                            <div class="page3-water-cup">
+                                                <div class="page3-water-fill"></div>
+                                            </div>
+                                            <span>Cup 4</span>
+                                        </div>
+
+                                </section>
+
+                                <!-- Journal Section -->
+                                <section class="slide">
+                                    <h2 id="slide3Heading" class="text-xl font-semibold ">Daily Reflection 📝</h2>
+                                    <input id="journal-entry" class="w-full rounded-lg border border-gray-200" placeholder="Share your thoughts and feelings..." aria-label="" >
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Save Button -->
+                </main>
+            </div>
+        </div>
+
+<!-- PAGE - 4 -->
+
+        <div class="page" style="z-index: -5;">
+            <div class="page-content">
+                <div class="page4-diary-container" style="margin-top: -15px;">
+                    <div class="page4-diary-header" style="margin-top: -15px;">Diary To-Do List</div>
+                    <div class="page4-input-container">
+                        <input type="text" id="taskInput" placeholder="Write your task...">
+                        <button onclick="addTask()">Add</button>
+                    </div>
+                    <ul class="to-do-list" id="toDoList"></ul>
+                </div>
+
+                <!-- Completed Tasks Section -->
+                <div class="page4-diary-container">
+                    <div class="page4-diary-header">Completed Tasks</div>
+                    <ul class="to-do-list" id="completedTasks"></ul>
+                </div>
+
+                <script>
+                    function addTask() {
+                        const taskInput = document.getElementById('taskInput');
+                        const toDoList = document.getElementById('toDoList');
+
+                        if (taskInput.value.trim() !== '') {
+                            const listItem = document.createElement('li');
+                            listItem.className = 'to-do-item';
+
+                            const checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.onchange = function() {
+                                moveToCompleted(listItem);
+                            };
+
+                            const taskText = document.createElement('span');
+                            taskText.textContent = taskInput.value;
+
+                            const deleteButton = document.createElement('button');
+                            deleteButton.textContent = 'Delete';
+                            deleteButton.onclick = function() {
+                                toDoList.removeChild(listItem);
+                            };
+
+                            listItem.appendChild(checkbox);
+                            listItem.appendChild(taskText);
+                            listItem.appendChild(deleteButton);
+                            toDoList.appendChild(listItem);
+
+                            taskInput.value = '';
+                            updateBookSizes();
+                        }
+                    }
+
+                    function moveToCompleted(taskItem) {
+                        const completedTasks = document.getElementById('completedTasks');
+                        const checkbox = taskItem.querySelector('input[type="checkbox"]');
+                        checkbox.disabled = true;
+                        const deleteButton = taskItem.querySelector('button');
+                        deleteButton.onclick = function() {
+                            completedTasks.removeChild(taskItem);
+                        };
+                        document.getElementById('toDoList').removeChild(taskItem);
+                        completedTasks.appendChild(taskItem);
+                        updateBookSizes();
+                    }
+                </script>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="controls">
+    <button id="bookPrev" class="btn btn-primary" disabled>Previous</button>
+    <button id="bookNext" class="btn btn-primary">Next</button>
+</div>
+
+
+
+
+<script> // Book controller
+    const pagesContainer = document.getElementById("page-container")
+    const bodyPages = document.querySelectorAll(".page");
+    const coverPages = document.querySelectorAll(".cover")
+    const allPages = document.querySelectorAll(".page, .cover")
+    const prevButton = document.getElementById("bookPrev")
+    const nextButton = document.getElementById("bookNext")
+    let currentPageNumber = 0;
+
+    function canGoNextBookPage() {
+        return currentPageNumber < allPages.length -1
+    }
+    function canGoPrevBookPage() {
+        return currentPageNumber > 0
+    }
+    function goNextBookPage() {
+        freezeBookNext()
+        allPages[currentPageNumber].classList.add('flipped');
+        allPages[currentPageNumber].style.zIndex = 0-allPages[currentPageNumber].style.zIndex;
+        setTimeout(()=>{
+            allPages[currentPageNumber].visibility = "hidden"
+            for (let i=0;i<allPages[currentPageNumber].children.length; i++) {
+                allPages[currentPageNumber].children[i].style.backfaceVisibility = "hidden"
+            }
+            currentPageNumber++;
+            if (canGoPrevBookPage()) unFreezeBookPrev()
+            if (canGoNextBookPage()) unFreezeBookNext()
+        }, 150)
+    }
+    function goPrevBookPage() {
+        freezeBookPrev()
+        allPages[currentPageNumber-1].classList.remove('flipped');
+        setTimeout(()=>{
+            allPages[currentPageNumber-1].style.zIndex = 0 - allPages[currentPageNumber-1].style.zIndex;
+            for (let i=0;i<allPages[currentPageNumber-1].children.length; i++) {
+                allPages[currentPageNumber - 1].children[i].style.backfaceVisibility = "visible"
+            }
+            currentPageNumber--;
+            if (canGoPrevBookPage()) unFreezeBookPrev()
+            if (canGoNextBookPage()) unFreezeBookNext()
+        }, 500)
+    }
+    function freezeBookNext() {
+        nextButton.disabled = true
+    }
+    function freezeBookPrev() {
+        prevButton.disabled = true
+    }
+    function unFreezeBookNext() {
+        nextButton.disabled = false
+    }
+    function unFreezeBookPrev() {
+        prevButton.disabled = false
+    }
+
+    document.getElementById('bookNext').addEventListener('click', () => {
+        if (canGoNextBookPage()) goNextBookPage()
+        setTimeout(()=>updateBookSizes(), 150)
+    });
+
+    document.getElementById('bookPrev').addEventListener('click', () => {
+        if (canGoPrevBookPage()) goPrevBookPage()
+        setTimeout(()=>updateBookSizes(), 500)
+    });
+</script>
+
+<script> // Page 1 controller
+    document.getElementById('page0-personalInfoForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const fullName = document.getElementById('fullName').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const address = document.getElementById('address').value;
+        const gender = document.getElementById('gender').value;
+        const birthdate = document.getElementById('birthdate').value;
+
+        const submittedInfoList = document.getElementById('page0-submittedInfo');
+        const listItem = document.createElement('li');
+
+        // Creating structured info display
+        listItem.innerHTML = `
+                            <div><span>Name:</span> ${fullName}</div>
+                            <div><span>Email:</span> ${email}</div>
+                            <div><span>Phone:</span> ${phone}</div>
+                            <div><span>Address:</span> ${address}</div>
+                            <div><span>Gender:</span> ${gender}</div>
+                            <div><span>Date of Birth:</span> ${birthdate}</div>
+                        `;
+
+        submittedInfoList.appendChild(listItem);
+
+        // Reset form fields
+        document.getElementById('page0-personalInfoForm').reset();
+    });
+
+</script>
+<script> // Page3 controller
+    const page3Slides = document.querySelectorAll('.slide')
+    const page3NextButton = document.getElementById('page3Next')
+    const page3PrevButton = document.getElementById('page3Prev')
+    let currentPage3Slide = 0
+
+    function goPage3Slide(slideNumber) {
+        page3PrevButton.disabled = true
+        page3NextButton.disabled = true
+        currentPage3Slide = slideNumber
+        document.querySelector('.page3-slides-wrapper').style.transform = `translateX(-${currentPage3Slide * 100}%)`;
+        if (canGoPrevPage3Slide()) page3PrevButton.disabled = false
+        if (canGoNextPage3Slide()) page3NextButton.disabled = false
+    }
+
+    function canGoNextPage3Slide() {
+        return currentPage3Slide < page3Slides.length - 1
+    }
+    function canGoPrevPage3Slide() {
+        return currentPage3Slide > 0
+    }
+
+    page3NextButton.addEventListener('click', () => {
+        if (canGoNextPage3Slide()) goPage3Slide(currentPage3Slide+1);
+    });
+
+    page3PrevButton.addEventListener('click', () => {
+        if (canGoPrevPage3Slide()) goPage3Slide(currentPage3Slide-1);
+    });
+
+    document.querySelectorAll('.page3-mood-option').forEach(option => {
+        option.addEventListener('click', () => {
+            document.querySelectorAll('.page3-emoji-sticker').forEach(emoji => {
+                emoji.classList.remove('page3-emoji-selected');
+            });
+            option.querySelector('.page3-emoji-sticker').classList.add('page3-emoji-selected');
+            //updateProgress();
+        });
+    });
+
+    const waterCups = document.querySelectorAll('.page3-water-cup');
+    waterCups.forEach(cup => {
+        cup.addEventListener('click', () => {
+            cup.classList.toggle('filled');
+            updateWaterProgress();
+        });
+    });
+
+    function updateWaterProgress() {
+        const filledCups = document.querySelectorAll('.page3-water-cup.filled').length;
+        const totalCups = waterCups.length;
+        const progressBar = document.querySelector('.page3-progress-fill');
+        const percentage = (filledCups / totalCups) * 100;
+        progressBar.style.width = `${percentage}%`;  // Corrected the style to use string interpolation
+        document.getElementById('page3-progress-text').innerText = `${Math.round(percentage)}%`;  // Corrected rounding and string interpolation
+    }
+
+    document.getElementById('page3-save-entry').addEventListener('click', () => {
+        //const journalEntry = document.getElementById('journal-entry').value;
+        alert('Your entry has been saved!');
+    });
+</script>
+
+<script> // sizes
+
+    page0Headers = document.querySelectorAll(".page0-form-header")
+    page0Inputs = document.querySelectorAll(".page0-form-group")
+    page0Submit = document.getElementById("page0Submit")
+    page0Output = document.querySelectorAll(".page0-submitted-info")
+
+    function updatePage0Sizes(windowX, windowY) {
+        page0Headers.forEach((element)=> {
+            element.style.fontSize = `${windowX / 90}px`
+        })
+        page0Headers[0].style.marginBottom = `${-15+ 2*(windowX / 192)}px`
+        page0Headers[1].style.marginBottom = `${10}px`
+        page0Headers[1].style.marginTop = `${7}px`
+        page0Inputs.forEach((element)=>{
+            element.style.height = `${windowX/48}px`
+            element.children[0].style.fontSize = `${windowX/120}px`
+            element.children[1].style.fontSize = `${windowX/113}px`
+            element.children[1].style.width = `${windowX/29}%`
+            element.children[1].style.height = `${windowX/64}px`
+        })
+        page0Submit.style.height = `${windowX/43}px`
+        page0Submit.style.fontSize = `${windowX/96}px`
+        page0Output.forEach((element)=>element.style.fontSize = `${windowX/106}px`)
+    }
+
+    page1Headers = document.querySelectorAll(".page1-form-header")
+    page1Inputs = document.querySelectorAll(".page1-input-container")
+    page1DiaryEntry = document.getElementById("diaryEntry")
+    page1ShortNote = document.getElementById("shortNote")
+    page1DearDiary = document.getElementById("dearDiary")
+    page1EntryDate = document.getElementById("entryDate")
+
+    function updatePage1Sizes(windowX, windowY) {
+        page1Headers.forEach((element)=> {
+            element.style.fontSize = `${windowX / 90}px`
+        })
+
+        page1DiaryEntry.style.height = `${windowX / 5.5}px`
+        page1ShortNote.style.height = `${windowX / 38.4}px`
+        page1DearDiary.style.height = `${windowX / 38.4}px`
+        page1EntryDate.style.height = `${windowX / 38.4}px`
+
+        page1DiaryEntry.style.fontSize = `${windowX / 128}px`
+        page1ShortNote.style.fontSize = `${windowX / 128}px`
+        page1DearDiary.style.fontSize = `${windowX / 128}px`
+        page1EntryDate.style.fontSize = `${windowX / 128}px`
+    }
+
+
+
+    page2Headers = document.querySelector(".page2-form-header")
+    page2InputContainer = document.querySelector(".page2-input-container")
+
+    function updatePage2Sizes(windowX, windowY) {
+        page2Headers.style.marginBottom = `${-5+2*(windowX / 192)}px`
+        page2Headers.style.fontSize = `${windowX / 90}px`
+
+        for (let i=0; i<page2InputContainer.children.length; i++) {
+            page2InputContainer.children[i].style.marginBottom = `${(windowX / 192)}px`
+            page2InputContainer.children[i].style.height = `${windowX / 48}px`
+            page2InputContainer.children[i].style.fontSize = `${windowX / 101}px`
+        }
+    }
+
+    page3SlidesBgWhite = document.getElementById("slides-bg-white")
+    page3Submit = document.getElementById("page3-save-entry")
+    page3SlideContainer = document.querySelectorAll(".slides-container")
+    page3Slide1Header = document.getElementById("slide1Heading")
+    page3Slide2Header = document.getElementById("slide2Heading")
+    page3Slide3Header = document.getElementById("slide3Heading")
+    page3ProgressTextLabel = document.getElementById("progressTextLabel")
+    page3ProgressText = document.getElementById("page3-progress-text")
+    page3ProgressBar = document.querySelector(".progress-bar")
+    page3WaterCup = document.querySelectorAll(".page3-water-cup")
+    page3ProgressContainer = document.getElementById("progressContainer")
+
+    function updatePage3Sizes(windowX, windowY) {
+        page3Submit.style.height = `${windowX/43}px`
+        page3Submit.style.fontSize = `${windowX/96}px`
+        page3Slides.forEach((element)=> {
+            element.style.height = `${(windowX / 4.8)}px`
+        })
+        page3WaterCup.forEach((element)=> {
+            element.style.height = `${(windowX / 32)}px`
+            element.style.width = `${(windowX / 48)}px`
+        })
+        page3ProgressContainer.style.marginTop = `${-20+(windowX / 64)}px`
+        page3NextButton.style.height = `${(windowX / 38.4)}px`
+        page3NextButton.style.fontSize = `${(windowX / 96)}px`
+        page3PrevButton.style.height = `${(windowX / 38.4)}px`
+        page3PrevButton.style.fontSize = `${(windowX / 96)}px`
+        page3SlideContainer.forEach((element)=>{
+            element.style.fontSize = `${(windowX / 96)}px`
+            //element.style.height = `${windowX / 4.7}px`
+        })
+        page3Slide1Header.style.fontSize = `${(windowX / 64)}px`
+        page3Slide2Header.style.fontSize = `${(windowX / 64)}px`
+        page3Slide3Header.style.fontSize = `${(windowX / 64)}px`
+        page3ProgressText.style.fontSize = `${(windowX / 96)}px`
+        page3ProgressTextLabel.style.fontSize = `${(windowX / 96)}px`
+        page3ProgressBar.style.height = `${2+ (windowX / 240)}px`
+        page3SlidesBgWhite.style.height = `${windowX / 5.8}px`
+    }
+
+    page4Headers = document.querySelectorAll(".page4-diary-header")
+    page4InputContainer = document.querySelector(".page4-input-container")
+    function updatePage4Sizes(windowX, windowY) {
+        page4Headers.forEach((element)=> {
+            element.style.fontSize = `${windowX / 90}px`
+        })
+        document.querySelectorAll(".to-do-item").forEach((element)=> {
+            element.children[1].style.fontSize = `${(windowX / 128)}px`
+            element.children[2].style.fontSize = `${(windowX / 128)}px`
+        })
+        document.querySelectorAll(".to-do-list").forEach((element)=>{
+            element.style.maxHeight = `${(windowX / 17.45)}px`
+        })
+        for (let i=0; i<page4InputContainer.children.length; i++) {
+            page4InputContainer.children[i].style.marginBottom = `${(windowX / 192)}px`
+            page4InputContainer.children[i].style.height = `${windowX / 48}px`
+            page4InputContainer.children[i].style.fontSize = `${windowX / 101}px`
+        }
+    }
+
+    function updateBookSizes() {
+        let windowX = window.innerWidth
+        let windowY = window.innerHeight
+
+        let width = windowX * 0.5
+        let height = width * (5 / 8)
+        if (height <= windowY) {
+        } else {
+            height = windowY * 0.5
+            width = height * (8 / 5)
+        }
+        pagesContainer.style.height = `${height}px`
+        pagesContainer.style.width = `${width}px`
+
+        for (let i = 0; i < coverPages.length; i++) {
+            coverPages[i].style.height = `${height*1.08}px`
+            coverPages[i].style.width = `${(width/2)*1.08}px`
+            coverPages[i].style.top = `-${height/23}px`
+            if (currentPageNumber===0) {
+                coverPages[i].style.left = `+${windowX*0.015}px`
+            } else {
+                coverPages[i].style.left = `${windowX*0.135}px`
+            }
+        }
+        for (let i = 0; i < bodyPages.length; i++) {
+            bodyPages[i].style.height = `${height}px`
+            bodyPages[i].style.width = `${width/2}px`
+            if (currentPageNumber===0) {
+                bodyPages[i].style.left = `${windowX*0.145}px`
+            } else {
+                bodyPages[i].style.left = `${windowX*0.25}px`
+            }
+        }
+        updatePage0Sizes(windowX, windowY)
+        updatePage1Sizes(windowX, windowY)
+        updatePage2Sizes(windowX, windowY)
+        updatePage3Sizes(windowX, windowY)
+        updatePage4Sizes(windowX, windowY)
+    }
+    window.addEventListener("resize", updateBookSizes)
+    updateBookSizes()
+</script>
+</body>
+</html>

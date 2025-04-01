@@ -1,0 +1,466 @@
+body {
+    background-image: url("wood2.jpg");
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+    flex-direction: column;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 500px;
+    height: 800px;
+    perspective: 1500px;
+    border-radius: 10px;
+}
+
+#page-container-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1; /* Fill available vertical space */
+}
+
+.cover-image {
+    width: 100%;
+    height: 100%; /* Adjust the size based on the image */
+    backface-visibility: hidden;
+}
+
+.cover {
+    position: relative;
+    background-color: transparent; /* Transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transform-origin: left;
+    transform-style: preserve-3d;
+    transition: transform 0.8s linear, background-color 0.8s linear, opacity 0.8s linear;
+}
+
+.page {
+    position: absolute;
+    background: #fff; /* White background for pages */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform-origin: left;
+    transform-style: preserve-3d;
+    transition: transform 0.8s linear;
+}
+
+
+.cover.flipped {
+    transform: rotateY(-180deg);
+    background-color: rgba(140, 51, 255, 1); /* Purple background when flipped */
+    opacity: 1;
+
+}
+
+.page.flipped {
+    transform: rotateY(-180deg);
+
+}
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.page.flipped .page-content {
+}
+
+.cover.flipped .cover-content {
+}
+
+.page-content {
+    padding: 15px;
+    font-family: Arial, sans-serif;
+    color: #772caf;
+}
+
+.controls {
+    position: absolute; /* Absolute positioning for independent placement */
+    top: 90%; /* Adjust the distance from the top of the viewport */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center alignment correction */
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Add spacing between buttons */
+}
+
+@media (max-width: 600px) {
+    .controls {
+        gap: 150px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .controls {
+        gap: 350px;
+    }
+}
+
+#bookPrev, #bookNext{
+    background-color: #772caf;
+    border-color: #deb0ff;
+}
+
+#bookPrev:hover, #bookNext:hover{
+    background-color: #a632ff;
+}
+
+button {
+    padding: 0 0;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s linear;
+}
+
+button:hover {
+    background-color: #772caf;
+    color: white;
+}
+
+
+input,select{
+    background-color: #f4deff;
+    color: #772caf;
+    border: 1px solid #f4deff;
+    border-radius: 5px;
+}
+
+input::placeholder {color: #772caf;}
+
+input:focus {border: 2px solid #772caf;}
+
+/* PAGE - 1 */
+
+.page0-form-header {
+    margin-bottom: -10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.page0-form-group{
+    text-align: right;
+}
+
+
+.page0-input-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.page0-input-container button {
+    margin-top: 10px;
+    background-color: #772caf;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.page0-input-container button:hover {
+    background-color: #b95aff;
+}
+
+.page0-form-group label {
+    font-weight: bold;
+    line-height: 1px;
+}
+
+
+.page0-submitted-info {
+    list-style-type: none;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4deff;
+}
+
+.page0-submitted-info li {
+    background-color: #f3f3f3;
+}
+
+.page0-submitted-info li div span {
+    font-weight: bold;
+}
+
+
+/* PAGE - 1, 2 */
+
+.page2-save-btn {
+    margin-top: 10px;
+    padding: 0 0;
+    background-color: #772caf;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.page2-save-btn:hover {
+    background-color: #b95aff;
+}
+
+
+.page1-form-header, .page2-form-header {
+    margin-top: -10px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+.page2-input-container {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.page2-input-container input, .page2-input-container select {
+    width: 95%;
+}
+
+.page2-input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.page1-row, .page2-row {
+    display: flex;
+    gap: 10px;
+}
+
+#diaryEntry{
+    width: 100%;
+}
+
+#dearDiary,#entryDate{
+    width: 50%;
+}
+
+.page1-input-container input{
+    width: 100%;
+}
+
+.page1-input-container input,
+.page1-input-container input,
+.page1-input-container select,
+.page2-input-container input,
+.page2-input-container input,
+.page2-input-container select{
+    margin-bottom: 2px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.page1-save-btn, .page2-save-btn {
+    width: 100%;
+    background-color: #772caf;
+    color: white;
+    padding: 0 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+    bottom: 20px;
+    right: 20px;
+}
+
+.page1-save-btn:hover, .page2-save-btn:hover {
+    background-color: #b95aff;
+}
+
+
+/* PAGE - 3 */
+
+.page3-container{
+    margin: -10px;
+}
+#page3-save-entry {
+    margin-top: -10px;
+    width: 100%;
+}
+
+.slides-container {
+    overflow: hidden;
+    position: relative;
+}
+#page3Prev, #page3Next {
+    width: 40%;
+    background-color: #772caf;
+    color: white;
+}
+
+#page3-save-entry{
+    background-color: #772caf;
+}
+
+#page3Prev:hover, #page3Next:hover, #page3-save-entry:hover {
+    background-color: #a632ff;
+}
+
+.page3-slides-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+}
+
+.page3-emoji-sticker {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+}
+
+.page3-emoji-selected {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 10px rgba(102,126,234,0.5));
+}
+
+.page3-water-cup {
+    border: 2px solid #3B82F6;
+    border-radius: 0 0 10px 10px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.waterContainer{
+    display: inline-block;
+}
+
+.page3-water-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #93C5FD;
+    transition: height 0.3s ease;
+    height: 0;
+}
+
+.page3-water-cup.filled .page3-water-fill {
+    height: 100%;
+    background: #3B82F6;
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: #f3f4f6;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.page3-progress-fill {
+    height: 100%;
+    background-color: #4CAF50;
+    width: 0;
+    transition: width 0.3s ease;
+}
+
+#journal-entry{
+    width: 90%;
+    height: 40%;
+}
+
+
+/* PAGE - 4 */
+
+.page4-diary-container {
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+}
+
+.page4-diary-header {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.page4-input-container {
+    text-align: center;
+    justify-content: left;
+    align-items: center;
+    margin: 0;
+    display: flex;
+}
+
+.page4-input-container input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 85%;
+}
+
+.page4-input-container button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 6px;
+    width: 15%;
+}
+
+.page4-input-container button:hover {
+    background-color: #2b772f;
+}
+
+.to-do-list {
+    overflow-y: auto;
+    list-style: none;
+    padding: 0;
+    max-height: 110px;
+}
+
+.to-do-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #f9f9f9;
+}
+
+.to-do-item span {
+    flex: 1;
+    margin-left: 10px;
+}
+
+.to-do-item button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.to-do-item button:hover {
+    background-color: #d32f2f;
+}
